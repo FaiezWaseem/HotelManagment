@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hotel.managment.admin;
+package com.hotel.managment.View.AdminView;
+import com.hotel.managment.controller.AdminHomeController;
 import java.awt.*;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 /**
@@ -16,11 +18,13 @@ public class menu1 extends javax.swing.JInternalFrame {
     /**
      * Creates new form menu1
      */
-    public menu1() {
+    public menu1() throws ClassNotFoundException, SQLException {
         initComponents();
        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
       BasicInternalFrameUI ui  = (BasicInternalFrameUI) this.getUI(); 
       ui.setNorthPane(null);
+      
+      new AdminHomeController(this);
 
 
     }
@@ -49,7 +53,7 @@ public class menu1 extends javax.swing.JInternalFrame {
 
         };
         jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        room_txt = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel(){
 
             @Override
@@ -63,7 +67,7 @@ public class menu1 extends javax.swing.JInternalFrame {
 
         };
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        user_txt = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel(){
 
             @Override
@@ -77,7 +81,7 @@ public class menu1 extends javax.swing.JInternalFrame {
 
         };
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        emp_txt = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel(){
 
             @Override
@@ -91,7 +95,7 @@ public class menu1 extends javax.swing.JInternalFrame {
 
         };
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        bk_txt = new javax.swing.JLabel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         HomePanel1 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel(){
@@ -163,9 +167,9 @@ public class menu1 extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Rooms");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(31, 101, 132));
-        jLabel5.setText("56");
+        room_txt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        room_txt.setForeground(new java.awt.Color(31, 101, 132));
+        room_txt.setText("56");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -174,20 +178,20 @@ public class menu1 extends javax.swing.JInternalFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
-                        .addComponent(jLabel5)))
-                .addContainerGap(110, Short.MAX_VALUE))
+                        .addComponent(room_txt))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel6)))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(73, 73, 73)
                 .addComponent(jLabel6)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel5)
+                .addGap(36, 36, 36)
+                .addComponent(room_txt)
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
@@ -196,9 +200,9 @@ public class menu1 extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Users");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(31, 101, 132));
-        jLabel8.setText("37");
+        user_txt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        user_txt.setForeground(new java.awt.Color(31, 101, 132));
+        user_txt.setText("37");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -211,7 +215,7 @@ public class menu1 extends javax.swing.JInternalFrame {
                         .addComponent(jLabel7))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
-                        .addComponent(jLabel8)))
+                        .addComponent(user_txt)))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -220,16 +224,16 @@ public class menu1 extends javax.swing.JInternalFrame {
                 .addGap(76, 76, 76)
                 .addComponent(jLabel7)
                 .addGap(33, 33, 33)
-                .addComponent(jLabel8)
+                .addComponent(user_txt)
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Employees");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(31, 101, 132));
-        jLabel10.setText("25");
+        emp_txt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        emp_txt.setForeground(new java.awt.Color(31, 101, 132));
+        emp_txt.setText("25");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -239,7 +243,7 @@ public class menu1 extends javax.swing.JInternalFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
-                        .addComponent(jLabel10))
+                        .addComponent(emp_txt))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel9)))
@@ -251,16 +255,16 @@ public class menu1 extends javax.swing.JInternalFrame {
                 .addGap(70, 70, 70)
                 .addComponent(jLabel9)
                 .addGap(39, 39, 39)
-                .addComponent(jLabel10)
+                .addComponent(emp_txt)
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setText("Booking");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(31, 101, 132));
-        jLabel12.setText("19");
+        bk_txt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bk_txt.setForeground(new java.awt.Color(31, 101, 132));
+        bk_txt.setText("19");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -270,7 +274,7 @@ public class menu1 extends javax.swing.JInternalFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
-                        .addComponent(jLabel12))
+                        .addComponent(bk_txt))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addComponent(jLabel11)))
@@ -282,7 +286,7 @@ public class menu1 extends javax.swing.JInternalFrame {
                 .addGap(65, 65, 65)
                 .addComponent(jLabel11)
                 .addGap(44, 44, 44)
-                .addComponent(jLabel12)
+                .addComponent(bk_txt)
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
@@ -528,10 +532,10 @@ public class menu1 extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel HomePanel;
     private javax.swing.JPanel HomePanel1;
+    public javax.swing.JLabel bk_txt;
+    public javax.swing.JLabel emp_txt;
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -540,10 +544,8 @@ public class menu1 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -554,5 +556,7 @@ public class menu1 extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private rojerusan.RSMaterialButtonRectangle rSMaterialButtonRectangle1;
+    public javax.swing.JLabel room_txt;
+    public javax.swing.JLabel user_txt;
     // End of variables declaration//GEN-END:variables
 }

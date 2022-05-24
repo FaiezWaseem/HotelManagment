@@ -1,17 +1,20 @@
 
-package com.hotel.managment.lib;
+package com.hotel.managment.utils;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class SQL {
    
   private Connection con= null;
   private String url = "jdbc:mysql://localhost:3306/";
     
-    public SQL(String Tablename) throws ClassNotFoundException, SQLException{
+    public SQL(String DatabaseName) throws ClassNotFoundException, SQLException{
     
           Class.forName("com.mysql.jdbc.Driver");
-          this.con = DriverManager.getConnection(this.url +Tablename,"root",""); 
+          this.con = DriverManager.getConnection(this.url +DatabaseName,"root",""); 
     
    }
     
@@ -21,10 +24,20 @@ public class SQL {
     return rs;
     }
     
-    public boolean insert(String query) throws SQLException{
-    PreparedStatement statement = this.con.prepareStatement(query);
-     int rowsInserted = statement.executeUpdate();
-      return (rowsInserted > 0);
+    public boolean insert(String query) {
+      try {
+          PreparedStatement statement = this.con.prepareStatement(query);
+          int rowsInserted = statement.executeUpdate();
+          return (rowsInserted > 0);
+      } catch (SQLException ex) {
+          if(ex.toString().contains("customer_id")){
+          show("You Already Have A Booking");
+          }else{
+          show("SQL Error: " +ex);
+          }
+          return false;
+      }
+ 
     }
     
     
@@ -40,6 +53,9 @@ public class SQL {
          return (rowsInserted > 0);
     }
     
+      public <T> void show(T s){
+        JOptionPane.showMessageDialog(null,s);
+      }
 }
 
 

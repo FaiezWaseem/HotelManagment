@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hotel.managment.admin;
+package com.hotel.managment.View.AdminView;
 
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 
@@ -20,6 +24,12 @@ public class HomeAdmin extends javax.swing.JFrame {
      Color paneldefault;
      Color click;
     
+       public <T> void print(T s){
+         System.out.println(s);
+      }
+      public <T> void show(T s){
+        JOptionPane.showMessageDialog(null,s);
+      }
     
      public void resetdefault(){
        this.home_tab.setColorNormal(this.paneldefault);
@@ -30,7 +40,7 @@ public class HomeAdmin extends javax.swing.JFrame {
      }
      
     
-    public HomeAdmin() {
+    public HomeAdmin() throws ClassNotFoundException, SQLException {
         initComponents();
         paneldefault = new Color(240,240 ,240);
         click = new Color(255,255,255);
@@ -79,6 +89,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -263,7 +274,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addComponent(employee_tab, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(user_tab, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -276,7 +287,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 804, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -310,27 +321,46 @@ public class HomeAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void home_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_tabMouseClicked
-        // TODO add your handling code here:
-            menu1 menu = new menu1();
-        this.jDesktopPane1.removeAll();
-        this.jDesktopPane1.add(menu).setVisible(true);
-        resetdefault();
-        this.home_tab.setColorNormal(click);
+         try {
+             // TODO add your handling code here:
+             menu1 menu = new menu1();
+             this.jDesktopPane1.removeAll();
+             this.jDesktopPane1.add(menu).setVisible(true);
+             resetdefault();
+             this.home_tab.setColorNormal(click);
+         } catch (ClassNotFoundException ex) {
+             print(ex);
+         } catch (SQLException ex) {
+             print(ex);
+         }
         
     }//GEN-LAST:event_home_tabMouseClicked
 
     private void room_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_room_tabMouseClicked
-        // TODO add your handling code here:
-        menu2 menu = new menu2();
-        this.jDesktopPane1.removeAll();
-        this.jDesktopPane1.add(menu).setVisible(true);
-        resetdefault();
-        this.room_tab.setColorNormal(click);
+         try {
+             // TODO add your handling code here:
+             menu2 menu = new menu2();
+             this.jDesktopPane1.removeAll();
+             this.jDesktopPane1.add(menu).setVisible(true);
+             resetdefault();
+             this.room_tab.setColorNormal(click);
+         } catch (ClassNotFoundException ex) {
+            print(ex);
+         } catch (SQLException ex) {
+             print(ex);
+         }
     }//GEN-LAST:event_room_tabMouseClicked
 
     private void booking_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_booking_tabMouseClicked
         // TODO add your handling code here:
-        menu4 menu = new menu4();
+        menu4 menu = null;
+         try {
+             menu = new menu4();
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(HomeAdmin.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(HomeAdmin.class.getName()).log(Level.SEVERE, null, ex);
+         }
         this.jDesktopPane1.removeAll();
         this.jDesktopPane1.add(menu).setVisible(true);
         resetdefault();
@@ -339,11 +369,18 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void employee_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employee_tabMouseClicked
         // TODO add your handling code here:
-                 menu5 menu = new menu5();
+                 menu5 menu = null;
+         try {
+             menu = new menu5();
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(HomeAdmin.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(HomeAdmin.class.getName()).log(Level.SEVERE, null, ex);
+         }
         this.jDesktopPane1.removeAll();
         this.jDesktopPane1.add(menu).setVisible(true);
         resetdefault();
-        this.booking_tab.setColorNormal(click);
+        this.employee_tab.setColorNormal(click);
     }//GEN-LAST:event_employee_tabMouseClicked
 
     private void user_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_tabMouseClicked
@@ -385,7 +422,13 @@ public class HomeAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeAdmin().setVisible(true);
+                try {
+                    new HomeAdmin().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    System.out.println(ex);
+                } catch (SQLException ex) {
+                     System.out.println(ex);
+                }
             }
         });
     }

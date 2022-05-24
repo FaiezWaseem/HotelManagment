@@ -1,7 +1,7 @@
 
-package com.hotel.managment.lib;
+package com.hotel.managment.utils;
 
-import java.util.Arrays;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;

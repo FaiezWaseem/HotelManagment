@@ -1,6 +1,6 @@
 package com.hotel.managment;
 
-import com.hotel.managment.View.Home;
+import com.hotel.managment.View.UsersView.Home;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

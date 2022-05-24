@@ -1,5 +1,5 @@
 
-package com.hotel.managment.DataStructure;
+package com.hotel.managment.utils;
 
 import java.util.function.Consumer;
 
@@ -19,7 +19,7 @@ private int Count;
       public boolean isEmpty(){
        return First == null;
       }
-    public int Counter(){return this.Count;}
+    public int Size(){return this.Count;}
     public void insertAtFirst(T item){
       Node n = new Node();
       n.value = item;
