@@ -5,6 +5,8 @@
  */
 package com.hotel.managment.View.UsersView;
 
+import com.hotel.managment.controller.BookiingHistoryController;
+import java.sql.SQLException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -16,11 +18,12 @@ public class menu2 extends javax.swing.JInternalFrame {
     /**
      * Creates new form menu2
      */
-    public menu2() {
+    public menu2() throws ClassNotFoundException, SQLException {
         initComponents();
            this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
       BasicInternalFrameUI ui  = (BasicInternalFrameUI) this.getUI(); 
       ui.setNorthPane(null);
+      BookiingHistoryController b = new BookiingHistoryController(this);
     }
 
     /**
@@ -61,13 +64,10 @@ public class menu2 extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Room", "charges", "Check In", "Check Out"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -139,7 +139,7 @@ public class menu2 extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     private rojerusan.RSMaterialButtonRectangle rSMaterialButtonRectangle1;
     private rojerusan.RSMetroTextPlaceHolder rSMetroTextPlaceHolder1;
     // End of variables declaration//GEN-END:variables

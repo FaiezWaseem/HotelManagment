@@ -22,7 +22,7 @@ public class menu4 extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui  = (BasicInternalFrameUI) this.getUI(); 
         ui.setNorthPane(null);
-        BookingController b = new BookingController(this.jTable1);
+        BookingController b = new BookingController(this);
         
         
     }
@@ -40,8 +40,8 @@ public class menu4 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        rSMaterialButtonRectangle1 = new rojerusan.RSMaterialButtonRectangle();
+        bk_id = new javax.swing.JTextField();
+        cancel_booking = new rojerusan.RSMaterialButtonRectangle();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -61,8 +61,13 @@ public class menu4 extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("booking ID:");
 
-        rSMaterialButtonRectangle1.setBackground(new java.awt.Color(73, 135, 229));
-        rSMaterialButtonRectangle1.setText("cancel Booking");
+        cancel_booking.setBackground(new java.awt.Color(73, 135, 229));
+        cancel_booking.setText("cancel Booking");
+        cancel_booking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel_bookingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,10 +79,10 @@ public class menu4 extends javax.swing.JInternalFrame {
                         .addGap(68, 68, 68)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bk_id, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
-                        .addComponent(rSMaterialButtonRectangle1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancel_booking, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -93,9 +98,9 @@ public class menu4 extends javax.swing.JInternalFrame {
                         .addGap(248, 248, 248)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bk_id, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
-                        .addComponent(rSMaterialButtonRectangle1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancel_booking, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -113,13 +118,17 @@ public class menu4 extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cancel_bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_bookingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancel_bookingActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField bk_id;
+    public rojerusan.RSMaterialButtonRectangle cancel_booking;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private rojerusan.RSMaterialButtonRectangle rSMaterialButtonRectangle1;
     // End of variables declaration//GEN-END:variables
 }

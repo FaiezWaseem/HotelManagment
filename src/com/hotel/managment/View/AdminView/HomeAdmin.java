@@ -384,12 +384,18 @@ public class HomeAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_employee_tabMouseClicked
 
     private void user_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_tabMouseClicked
-        // TODO add your handling code here:
-                 menu3 menu = new menu3();
-        this.jDesktopPane1.removeAll();
-        this.jDesktopPane1.add(menu).setVisible(true);
-        resetdefault();
-        this.user_tab.setColorNormal(click);
+         try {
+             // TODO add your handling code here:
+             menu3 menu = new menu3();
+             this.jDesktopPane1.removeAll();
+             this.jDesktopPane1.add(menu).setVisible(true);
+             resetdefault();
+             this.user_tab.setColorNormal(click);
+         } catch (ClassNotFoundException ex) {
+           print(ex);
+         } catch (SQLException ex) {
+            print(ex);
+         }
     }//GEN-LAST:event_user_tabMouseClicked
 
     /**

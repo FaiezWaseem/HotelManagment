@@ -75,7 +75,7 @@ public class UserPanel extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -328,12 +328,18 @@ public class UserPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_home_tabMouseClicked
 
     private void history_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_history_tabMouseClicked
-        // TODO add your handling code here:
-          menu2 menu = new menu2();
-        this.jDesktopPane1.removeAll();
-        this.jDesktopPane1.add(menu).setVisible(true);
-          resetdefault();
-        this.history_tab.setColorNormal(click);
+           try {
+               // TODO add your handling code here:
+               menu2 menu = new menu2();
+               this.jDesktopPane1.removeAll();
+               this.jDesktopPane1.add(menu).setVisible(true);
+               resetdefault();
+               this.history_tab.setColorNormal(click);
+           } catch (ClassNotFoundException ex) {
+               Logger.getLogger(UserPanel.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (SQLException ex) {
+               Logger.getLogger(UserPanel.class.getName()).log(Level.SEVERE, null, ex);
+           }
     }//GEN-LAST:event_history_tabMouseClicked
 
     private void profile_tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_tabMouseClicked

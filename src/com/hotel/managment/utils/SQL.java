@@ -17,6 +17,8 @@ public class SQL {
           this.con = DriverManager.getConnection(this.url +DatabaseName,"root",""); 
     
    }
+
+ 
     
     public ResultSet select(String query) throws SQLException{
      Statement  s = this.con.createStatement();

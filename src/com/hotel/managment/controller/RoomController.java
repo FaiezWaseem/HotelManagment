@@ -59,7 +59,35 @@ public class RoomController {
               }
           } );
         
+        this.View.remove_btn.addActionListener( e-> {
+              try {
+                  RemoveRoomButtonClicked();
+              } catch (ClassNotFoundException ex) {
+                 show("Class Not Found Error : "+ex);
+              }
+          });
+        
+       
     }
+  
+    
+    
+    public void RemoveRoomButtonClicked() throws ClassNotFoundException {
+    
+        try {
+            String roomID = this.View.jTextField1.getText();
+            boolean res =  this.con.delete("DELETE FROM `room` WHERE room_id = "+roomID+" and status = 'available'");
+            show(res ? "Room Removed From Databsee" : "Failed To Remov room\nPossible Reason : Already booked or Wrong Room Id");
+            if(res){
+            this.fetchRoom();
+            this.loadroom();
+            }
+        } catch (SQLException ex) {
+            show(ex);
+        }
+    
+    }
+    
     
     private void AddRoom() throws ClassNotFoundException{
        

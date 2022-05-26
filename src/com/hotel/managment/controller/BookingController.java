@@ -5,11 +5,13 @@
  */
 package com.hotel.managment.controller;
 
+import com.hotel.managment.View.AdminView.menu4;
 import com.hotel.managment.View.UsersView.menu1;
 import com.hotel.managment.model.Booking;
 import com.hotel.managment.model.Room;
 import com.hotel.managment.utils.DoublyLinkList;
 import com.hotel.managment.utils.LocalStorage;
+import com.hotel.managment.utils.MyDate;
 import com.hotel.managment.utils.SQL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -46,17 +50,26 @@ public class BookingController {
    public  DoublyLinkList<Booking> Bk =  new DoublyLinkList();
    private JTable table;
    private menu1 view;
+   private menu4 AdminBooking = null;
    private boolean  isBooking = false;
+   private Booking Currentbooking = null;
+   
     
     public BookingController() throws ClassNotFoundException, SQLException{
       this.con = new SQL("hotelmanagement");
     }
-    public BookingController(JTable table) throws ClassNotFoundException, SQLException{
+    public BookingController(menu4 AdminBooking) throws ClassNotFoundException, SQLException{
       this.con = new SQL("hotelmanagement");
-      this.table = table;
+      this.AdminBooking = AdminBooking;
       this.getRoom();
       this.loadTable();
-      
+      this.AdminBooking.cancel_booking.addActionListener(e -> {
+          try {
+              ButtonCancelBookingClicked();
+          } catch (SQLException ex) {
+                  show(ex);
+          }
+      });
     }
     
     public BookingController(menu1 view) throws ClassNotFoundException, SQLException{
@@ -65,13 +78,58 @@ public class BookingController {
     this.view.rSMaterialButtonRectangle1.setEnabled(isBooking);
     this.view.rSMaterialButtonRectangle1.addActionListener(e -> Btn());
     this.con = new SQL("hotelmanagement");
+    this.Currentbooking = new Booking();
     this.getBookingStatus();
+    
     }
+    
+    
+    
+    
+    public void ButtonCancelBookingClicked() throws SQLException{
+   
+        String bk_id = this.AdminBooking.bk_id.getText();
+        if(bk_id.length() > 0){
+            this.Bk.find(e ->{
+              Booking b = (Booking) e;
+              if(b.getbooking_id().matches(bk_id)){
+                  try {
+                      boolean res1 =   this.con.delete("DELETE FROM `booking` WHERE bk_id  = "+bk_id);   
+                      this.con.update("UPDATE `room` SET `status`='available' WHERE room_id ="+b.getRoom_id());
+                       show(res1 ? "Room booking Canceled": "Failed To Cancle booking");
+                       if(res1){
+                           this.getRoom();
+                            this.loadTable();
+                       }
+                  } catch (SQLException ex) {
+                      show(ex);
+                  }
+              }
+              
+            });
+          
+        }
+        
+    }
+    
     
     
       private void Btn(){
         if(this.isBooking){
-        
+            try {
+                float totalbill = CheckOutTotalBill();
+               boolean result =   Checkout(totalbill);
+               this.view.booking_info.setVisible(result);
+               this.isBooking = !result;
+               bookingTextDetails();
+               show(result ? "Booking Completed": "Failed to Complete ");
+            } catch (SQLException ex) {
+              show(ex);
+            } catch (ClassNotFoundException ex) {
+                print(ex);
+            }
+            
+            
         }else{
         show("No booking Found");
         this.view.rSMaterialButtonRectangle1.setEnabled(isBooking);
@@ -79,6 +137,26 @@ public class BookingController {
       
       }
       
+      private float CheckOutTotalBill(){
+      MyDate date = new MyDate();
+            int NoOfDaysStayed = date.DifferenceOfDays(this.Currentbooking.getCheck_in_date() , this.Currentbooking.getCheck_out_date());
+            int charges =  Integer.parseInt(this.Currentbooking.getRoom_Charges());
+            
+            float Total = NoOfDaysStayed * charges;
+            return Total;
+      }
+      
+      private boolean Checkout(float total) throws SQLException, ClassNotFoundException{
+       boolean res1 =   this.con.delete("DELETE FROM `booking` WHERE bk_id  = "+this.Currentbooking.getbooking_id());
+          String param = "VALUES ('"+this.Currentbooking.getRoom_Title()+"','"+total+"','"+this.Currentbooking.getCheck_in_date()+"','"+this.Currentbooking.getCheck_out_date()+"','"+new UserController().getUserId()+"')";
+        boolean res2 =  this.con.insert("INSERT INTO `booking_history`( `room_title`, `room_charges`, `check_in`, `check_out`, `customer_id`)"+param);
+        String room_id = this.Currentbooking.getRoom_id();
+        this.con.update("UPDATE `room` SET `status`='available' WHERE room_id ="+room_id);
+        return (res1 && res2);
+      }
+      
+      
+
       private void getBookingStatus() throws SQLException{
           LocalStorage store = new LocalStorage();
       
@@ -89,6 +167,12 @@ public class BookingController {
           String  Checkin = rs.getString("check_in_date");
           String  CheckOut = rs.getString("check_out_date");
           String Charges = rs.getString("room_charges");
+          this.Currentbooking.setRoom_id(rs.getString("room_id"));
+          this.Currentbooking.setbooking_id(rs.getString("bk_id"));
+          this.Currentbooking.setCheck_in_date(Checkin);
+          this.Currentbooking.setCheck_out_date(CheckOut);
+          this.Currentbooking.setRoomCharges(Charges);
+          this.Currentbooking.setRoom_Title(Room);
           this.view.room.setText("Room : "+Room);
           this.view.charges.setText("Charges : "+Charges+"$/night");
           this.view.checkin.setText("Check-in Date : "+Checkin);
@@ -130,8 +214,10 @@ public class BookingController {
     
       public <T> void bookRoom(T obj , T date) throws SQLException{
          
-         Date selected = (Date) date;
-         Instant s = selected.toInstant();
+          MyDate d =new MyDate();
+          
+         String selected = d.convertDateToString((Date) date);
+ 
          Room r = (Room) obj;
          LocalStorage store = new LocalStorage();
           
@@ -139,7 +225,7 @@ public class BookingController {
           Date now = new Date();
           if(now.before((Date) date)){
              
-              String param = "('"+r.getRoom_id()+"','"+store.get("uid")+"','"+now.toInstant()+"','"+s+"')";
+              String param = "('"+r.getRoom_id()+"','"+store.get("uid")+"','"+d.convertDateToString(now)+"','"+selected+"')";
              boolean res= this.con.insert("INSERT INTO `booking`( `room_id`, `customer_id`, `check_in_date`, `check_out_date`) VALUES "+param);
               
              if(res){
@@ -181,15 +267,15 @@ public class BookingController {
       }
       
       private void loadTable(){
-          DefaultTableModel model1 = (DefaultTableModel) this.table.getModel();
+          DefaultTableModel model1 = (DefaultTableModel) this.AdminBooking.jTable1.getModel();
               model1.setRowCount(0);
               
    
-        
+        if(this.Bk.Size() != 0)
               this.Bk.find((res)->{
                   Booking c = (Booking) res;        
                  Object[] row = { c.getRoom_Title(), c.getbooking_id() , c.getCustomer_id() , c.getCheck_in_date() , c.getCheck_out_date() };
-                 DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+                 DefaultTableModel model = (DefaultTableModel) this.AdminBooking.jTable1.getModel();
                  model.addRow(row);
               
               });

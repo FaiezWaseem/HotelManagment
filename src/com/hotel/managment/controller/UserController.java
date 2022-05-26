@@ -5,6 +5,7 @@
  */
 package com.hotel.managment.controller;
 
+import com.hotel.managment.View.AdminView.menu3;
 import com.hotel.managment.model.Users;
 import com.hotel.managment.utils.Base64Encryption;
 import com.hotel.managment.utils.LocalStorage;
@@ -12,6 +13,7 @@ import com.hotel.managment.utils.SQL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +24,7 @@ public class UserController {
    private SQL con = null;
    private LocalStorage store = null;
    private Users user =null;
+   private menu3 View = null;
    
    public UserController() throws ClassNotFoundException, SQLException{
       this.con = new SQL("hotelmanagement");
@@ -33,9 +36,35 @@ public class UserController {
       }
       
    }
+   public UserController(menu3 View) throws ClassNotFoundException, SQLException{
+      this.con = new SQL("hotelmanagement");
+      this.store = new LocalStorage();
+      this.user = new Users();
+      this.View = View;
+      if(this.store.get("uid") != null){
+           this.user.setCustomer_name(this.store.get("username"));
+           this.user.setcustomer_id(this.store.get("uid"));
+      }
+      this.init();
+      
+   }
    
    
     
+     private void init() throws SQLException{
+        DefaultTableModel model1 = (DefaultTableModel) this.View.jTable1.getModel();
+              model1.setRowCount(0);
+              
+         
+       ResultSet rs =  this.con.select("SELECT * FROM `users`");
+         while(rs.next()){
+            Object[] row = { rs.getString("customer_id") , rs.getString("customer_name") , rs.getString("email") };
+                 DefaultTableModel model = (DefaultTableModel) this.View.jTable1.getModel();
+                 model.addRow(row);
+         }
+     }
+   
+   
     
     
     public boolean register(Users user) throws SQLException{

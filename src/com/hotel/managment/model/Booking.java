@@ -16,7 +16,16 @@ public class Booking{
 	private String check_in_date;
 	private String check_out_date;
 	private String Room_Title;
+	private String Room_Charges;
 
+	public String getRoom_Charges(){
+		return Room_Charges;
+	}
+
+        
+	public void setRoomCharges(String Room_Charges){
+		this.Room_Charges = Room_Charges;
+	}
 	public String getRoom_Title(){
 		return Room_Title;
 	}
@@ -66,4 +75,9 @@ public class Booking{
 	public void setCheck_out_date(String check_out_date){
 		this.check_out_date=check_out_date;
 	}
+        
+        @Override
+        public String toString(){
+        return "[bookingID : "+this.booking_id+", Room ID : "+this.room_id+", Check In : "+this.check_in_date + ", CheckOut : "+this.check_out_date+" ]";
+        }
 }

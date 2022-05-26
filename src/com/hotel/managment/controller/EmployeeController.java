@@ -97,7 +97,7 @@ public class EmployeeController {
               model1.setRowCount(0);
               
 
-        
+        if(EmployeeList.Size() != 0)
         this.EmployeeList.find(e ->{
             Employee c = (Employee) e;
             

@@ -5,6 +5,8 @@
  */
 package com.hotel.managment.View.AdminView;
 
+import com.hotel.managment.controller.UserController;
+import java.sql.SQLException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -16,11 +18,12 @@ public class menu3 extends javax.swing.JInternalFrame {
     /**
      * Creates new form menu3
      */
-    public menu3() {
+    public menu3() throws ClassNotFoundException, SQLException {
         initComponents();
           this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
       BasicInternalFrameUI ui  = (BasicInternalFrameUI) this.getUI(); 
       ui.setNorthPane(null);
+      UserController user = new UserController(this);
     }
 
     /**
@@ -40,15 +43,23 @@ public class menu3 extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "fullname", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -88,6 +99,6 @@ public class menu3 extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
