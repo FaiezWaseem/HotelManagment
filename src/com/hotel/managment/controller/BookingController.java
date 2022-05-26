@@ -12,7 +12,11 @@ import com.hotel.managment.model.Room;
 import com.hotel.managment.utils.DoublyLinkList;
 import com.hotel.managment.utils.LocalStorage;
 import com.hotel.managment.utils.MyDate;
+import com.hotel.managment.utils.Reciept;
 import com.hotel.managment.utils.SQL;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
@@ -76,7 +80,13 @@ public class BookingController {
     this.view = view;
     this.bookingTextDetails();
     this.view.rSMaterialButtonRectangle1.setEnabled(isBooking);
-    this.view.rSMaterialButtonRectangle1.addActionListener(e -> Btn());
+    this.view.rSMaterialButtonRectangle1.addActionListener(e -> {
+        try {
+            Btn();
+        } catch (IOException ex) {
+            Logger.getLogger(BookingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    });
     this.con = new SQL("hotelmanagement");
     this.Currentbooking = new Booking();
     this.getBookingStatus();
@@ -114,7 +124,7 @@ public class BookingController {
     
     
     
-      private void Btn(){
+      private void Btn() throws IOException{
         if(this.isBooking){
             try {
                 float totalbill = CheckOutTotalBill();
@@ -123,6 +133,14 @@ public class BookingController {
                this.isBooking = !result;
                bookingTextDetails();
                show(result ? "Booking Completed": "Failed to Complete ");
+               
+                MyDate date = new MyDate();
+              int NoOfDaysStayed = date.DifferenceOfDays(this.Currentbooking.getCheck_in_date() , this.Currentbooking.getCheck_out_date()); 
+              Reciept r = new Reciept();
+             r.generateReciept("BookingID_"+this.Currentbooking.getbooking_id()+"_reciept.html", this.Currentbooking.getRoom_Title(), this.Currentbooking.getRoom_Charges() , Integer.toString(NoOfDaysStayed), String.valueOf(totalbill) );
+              show("reciept Generated");
+              File htmlFile = new File("BookingID_"+this.Currentbooking.getbooking_id()+"_reciept.html");
+              Desktop.getDesktop().browse(htmlFile.toURI());
             } catch (SQLException ex) {
               show(ex);
             } catch (ClassNotFoundException ex) {

@@ -8,6 +8,8 @@ package com.hotel.managment.utils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -71,7 +73,11 @@ public class MyDate {
         return convertStringToDate(dateStr , "dd-MM-YYYY");
     }
     
-    
+    public String getTime(){
+       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");  
+   LocalDateTime now = LocalDateTime.now();  
+     return dtf.format(now);  
+    }
     
     public int DifferenceOfDays(String date1 , String Date2){
           String str =date1;
@@ -100,6 +106,9 @@ public class MyDate {
         
         return x;
       }
+    
+    
+    
     private String InttoString(int i){
        return Integer.toString(i);
     }
